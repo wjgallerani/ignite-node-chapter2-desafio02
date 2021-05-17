@@ -1,0 +1,282 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Desafio 02 - Documentation",
+        "description": "This is an API User",
+        "version": "1.0.0",
+        "contact": {
+            "email": "teste@teste.com.br"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "Create User"
+                ],
+                "summary": "Create User",
+                "description": "Create a new User",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "User name sample",
+                                    "email": "teste@teste.com.br"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "boolean"
+                                            },
+                                            "created_at": {
+                                                "type": "date"
+                                            },
+                                            "updated_at": {
+                                                "type": "date"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User not found or without permission!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "List User"
+                ],
+                "summary": "List all Users",
+                "description": "Only admin users can access.",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "boolean"
+                                            },
+                                            "created_at": {
+                                                "type": "date"
+                                            },
+                                            "updated_at": {
+                                                "type": "date"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User not found or without permission!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "Search user by ID"
+                ],
+                "summary": "List a user by id",
+                "description": "List a user by id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "description": "User ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "boolean"
+                                            },
+                                            "created_at": {
+                                                "type": "date"
+                                            },
+                                            "updated_at": {
+                                                "type": "date"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found or without permission!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": [
+                    "Modify User"
+                ],
+                "summary": "Change to administrator",
+                "description": "Change a user to an administrator",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "description": "User ID",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "boolean"
+                                            },
+                                            "created_at": {
+                                                "type": "date"
+                                            },
+                                            "updated_at": {
+                                                "type": "date"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found or without permission!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
